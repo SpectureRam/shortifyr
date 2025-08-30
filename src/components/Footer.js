@@ -17,7 +17,7 @@ export default function Footer() {
         <span>Admin Dashboard</span>
         </Link>
         </div>
-        <p>&copy; {new Date().getFullYear()} LinkShortify. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Shortifyr. All rights reserved.</p>
 
       </div>
     </footer>

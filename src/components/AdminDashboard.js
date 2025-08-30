@@ -2,17 +2,25 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, ChevronLeft, ChevronRight, ExternalLink, LogOut, Calendar, MousePointer, Link as LinkIcon } from 'lucide-react'
-import { mockUrls } from '@/utils/mockData'
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  LogOut,
+  Calendar,
+  MousePointer,
+  Link as LinkIcon,
+  Copy
+} from 'lucide-react'
 
 export default function AdminDashboard() {
   const [urls, setUrls] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const router = useRouter()
-  
-  const itemsPerPage = 10
 
   useEffect(() => {
     const auth = localStorage.getItem('adminAuth')
@@ -20,13 +28,32 @@ export default function AdminDashboard() {
       router.push('/admin/login')
     } else {
       setIsAuthenticated(true)
-      setUrls(mockUrls)
+
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/urls`)
+        .then(res => res.json())
+        .then(data => {
+          const formatted = data.map(url => ({
+            id: url.id,
+            originalUrl: url.originalUrl,
+            shortUrl: url.shortCode,
+            customSlug: url.customSlug,
+            clicks: url.clicks,
+            dateCreated: url.createdAt
+          }))
+          setUrls(formatted)
+        })
+        .catch(err => console.error("Failed to load URLs:", err))
     }
   }, [router])
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuth')
     router.push('/')
+  }
+
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text)
+    alert("Copied to clipboard ✅")
   }
 
   const filteredUrls = urls.filter(url =>
@@ -81,7 +108,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-          
+
           <div className="card">
             <div className="flex items-center">
               <MousePointer className="w-8 h-8 text-green-600" />
@@ -91,7 +118,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-          
+
           <div className="card">
             <div className="flex items-center">
               <Calendar className="w-8 h-8 text-purple-600" />
@@ -105,7 +132,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Search Bar */}
         <div className="card mb-6">
           <div className="flex items-center space-x-2">
             <Search className="w-5 h-5 text-gray-400" />
@@ -126,7 +152,7 @@ export default function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
+                <tr className="border-b border-gray-200 bg-gray-50 text-sm">
                   <th className="text-left py-3 px-4 font-medium text-gray-900">Original URL</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-900">Short URL</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-900">Custom Slug</th>
@@ -137,15 +163,30 @@ export default function AdminDashboard() {
               </thead>
               <tbody>
                 {paginatedUrls.map((url, index) => (
-                  <tr key={url.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <tr
+                    key={url.id}
+                    className={`${
+                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                    } hover:bg-gray-100 transition`}
+                  >
                     <td className="py-3 px-4">
-                      <div className="max-w-xs truncate" title={url.originalUrl}>
-                        {url.originalUrl}
+                      <div className="flex items-center space-x-2 max-w-xs truncate" title={url.originalUrl}>
+                        <span className="truncate">{url.originalUrl}</span>
+                        <button onClick={() => handleCopy(url.originalUrl)}>
+                          <Copy className="w-4 h-4 text-gray-500 hover:text-gray-800" />
+                        </button>
                       </div>
                     </td>
+
                     <td className="py-3 px-4">
-                      <span className="font-mono text-blue-600">short.ly/{url.shortUrl}</span>
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-blue-600">short.ly/{url.shortUrl}</span>
+                        <button onClick={() => handleCopy(`short.ly/${url.shortUrl}`)}>
+                          <Copy className="w-4 h-4 text-gray-500 hover:text-gray-800" />
+                        </button>
+                      </div>
                     </td>
+
                     <td className="py-3 px-4">
                       {url.customSlug ? (
                         <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
@@ -155,12 +196,11 @@ export default function AdminDashboard() {
                         <span className="text-gray-400">-</span>
                       )}
                     </td>
-                    <td className="py-3 px-4">
-                      <span className="font-semibold">{url.clicks}</span>
-                    </td>
-                    <td className="py-3 px-4 text-gray-600">
-                      {formatDate(url.dateCreated)}
-                    </td>
+
+                    <td className="py-3 px-4 font-semibold">{url.clicks}</td>
+
+                    <td className="py-3 px-4 text-gray-600">{formatDate(url.dateCreated)}</td>
+
                     <td className="py-3 px-4">
                       <a
                         href={url.originalUrl}
@@ -178,46 +218,47 @@ export default function AdminDashboard() {
             </table>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-3 border-t border-gray-200 space-y-2 md:space-y-0">
               <div className="text-sm text-gray-600">
                 Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, filteredUrls.length)} of {filteredUrls.length} results
               </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span>Previous</span>
-                </button>
-                
-                <div className="flex items-center space-x-1">
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                      key={i + 1}
-                      onClick={() => setCurrentPage(i + 1)}
-                      className={`px-3 py-1 rounded ${
-                        currentPage === i + 1
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      } transition-colors`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                </div>
 
-                <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  disabled={currentPage === totalPages}
-                  className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+              <div className="flex items-center space-x-4">
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value))
+                    setCurrentPage(1)
+                  }}
+                  className="border rounded px-2 py-1 text-sm"
                 >
-                  <span>Next</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                  {[10, 25, 50, 100].map(size => (
+                    <option key={size} value={size}>{size} per page</option>
+                  ))}
+                </select>
+
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className="btn-secondary disabled:opacity-50 flex items-center space-x-1"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Previous</span>
+                  </button>
+
+                  <span className="px-3">{currentPage} / {totalPages}</span>
+
+                  <button
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className="btn-secondary disabled:opacity-50 flex items-center space-x-1"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           )}

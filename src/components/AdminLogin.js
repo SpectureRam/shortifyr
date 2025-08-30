@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Home } from "lucide-react";
+import Link from 'next/link'
 import { Eye, EyeOff, RefreshCw } from 'lucide-react'
 
 export default function AdminLogin() {
@@ -40,6 +42,8 @@ export default function AdminLogin() {
         router.push('/admin')
       }, 1000)
     }
+
+    generateCaptcha()
   }
 
   return (
@@ -64,11 +68,13 @@ export default function AdminLogin() {
                   onChange={(e) => setPassword(e.target.value)}
                   className="input-field pr-10"
                   placeholder="Enter admin password"
+                  disabled={isLoading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -100,6 +106,7 @@ export default function AdminLogin() {
                 onChange={(e) => setCaptcha(e.target.value)}
                 className="input-field"
                 placeholder="Enter the answer"
+                disabled={isLoading}
               />
               {errors.captcha && <p className="mt-1 text-sm text-red-600">{errors.captcha}</p>}
             </div>
@@ -111,11 +118,17 @@ export default function AdminLogin() {
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </button>
-          </form>
 
-          <div className="mt-4 text-xs text-gray-500 text-center">
-            Demo credentials: Password is &quot;admin123&quot;
-          </div>
+            <div className="text-center">
+              <Link
+                href="/"
+                className="flex items-center gap-1 text-gray-600 justify-center hover:text-gray-900 text-sm"
+              >
+                <Home size={14} />
+                Return Home
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
     </div>
