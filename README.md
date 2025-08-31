@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Shortifyr - URL Shortener
 
-## Getting Started
+Shortifyr is a simple and efficient URL shortener built with **Next.js** (frontend) and **Express.js** (backend).  
+It allows users to shorten long URLs into neat, shareable links.
 
-First, run the development server:
+## 🚀 Features
+- Shorten any long URL into a compact link  
+- Redirect to the original URL using the shortened link  
+- Backend powered by **Express.js** and **PostgreSQL**  
+- Frontend powered by **Next.js** and **Tailwind CSS**  
+- Easy deployment with **Vercel (frontend)** and **Render (backend)**
 
+## 🛠️ Tech Stack
+- **Frontend**: Next.js, Tailwind CSS  
+- **Backend**: Node.js, Express.js, MongoDB  
+- **Hosting**: Vercel (frontend), Render (backend)
+
+## 📦 Setup & Installation
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/SpectureRam/shortifyr.git
+cd shortifyr
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm i
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Configure Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Frontend (.env.local)
+```
+NEXT_PUBLIC_FRONTEND_URL=''
+NEXT_PUBLIC_BACKEND_URL=''
+```
 
-## Learn More
+### 4. Run the Project Locally
 
-To learn more about Next.js, take a look at the following resources:
+#### Frontend
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Deployment
+- **Frontend**: Deploy on [Vercel](https://vercel.com)  
+- **Backend**: Deploy on [Render](https://render.com)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📸 Demo
+Live Demo: [Shortifyr](https://shortifyr.vercel.app)
 
-## Deploy on Vercel
+## 📌Roadmap
+✅ Basic URL shortening<br>
+✅ Analytics (click counts, device info)<br>
+🔲 Custom slugs<br>
+🔲 User accounts & history<br>
+🔲 QR code generator<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Example shortened link:  
+```
+https://shortifyr.vercel.app/lyxseo
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## 📜 License
+This project is licensed under the GPL-3.0 License.
