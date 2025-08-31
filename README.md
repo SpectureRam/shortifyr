@@ -50,19 +50,19 @@ npm run dev
 Live Demo: [Shortifyr](https://shortifyr.vercel.app)
 
 ## 📌Roadmap
-✅ Basic URL shortening
-✅ Analytics (click counts, device info)
-🔲 Custom slugs
-🔲 User accounts & history
-🔲 QR code generator
+✅ Basic URL shortening<br>
+✅ Analytics (click counts, device info)<br>
+🔲 Custom slugs<br>
+🔲 User accounts & history<br>
+🔲 QR code generator<br>
 
 Example shortened link:  
 ```
-[https://shortifyr.vercel.app/abc123](https://shortifyr.vercel.app/lyxseo)
+https://shortifyr.vercel.app/lyxseo
 ```
 
 ## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## 📜 License
-This project is licensed under the MIT License.
+This project is licensed under the GPL-3.0 License.
