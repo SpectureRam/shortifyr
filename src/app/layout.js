@@ -4,8 +4,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'URL Shortener',
-  description: 'Professional URL shortening service',
+  title: 'Shortifyr | URL Shortener',
+  description: 'URL Shortener',
 }
 
 export default function RootLayout({ children }) {

@@ -26,7 +26,7 @@ export default function Header() {
           Shortifyr
         </Link>
         <a
-          href="https://github.com/spectureram/SpectureRam"
+          href="https://github.com/spectureram/shortifyr"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100 transition"

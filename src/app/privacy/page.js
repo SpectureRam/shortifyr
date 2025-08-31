@@ -8,7 +8,6 @@ export default function Privacy() {
     <>
       <Header />
       <div className="max-w-4xl mx-auto py-12 px-6">
-        {/* Back Button */}
         <Link
           href="/"
           className="inline-flex items-center text-gray-700 hover:text-black mb-6"
