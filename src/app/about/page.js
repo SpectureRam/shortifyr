@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -43,7 +43,7 @@ export default function About() {
           committed to keeping your data secure and your experience simple. If you&apos;d like to support this project, please consider giving it a star on GitHub.
         </p>
 
-        <p className="mt-6 text-gray-500 italic">– The Shortly Team</p>
+        <p className="mt-6 text-gray-500 italic">– The Shortifyr Team</p>
       </div>
       <Footer />
     </>

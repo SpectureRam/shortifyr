@@ -1,6 +1,6 @@
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import URLShortener from '@/components/URLShortener'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import URLShortener from '../components/URLShortener'
 
 export default function Home() {
   return (

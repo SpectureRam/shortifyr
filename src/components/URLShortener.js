@@ -74,7 +74,6 @@ export default function URLShortener() {
     if (data.error) {
       setError(data.error);
     } else {
-      // ✅ Use frontend origin for shortened URL
       const frontendUrl = window.location.origin;
       setShortUrl(`${frontendUrl}/${data.slug}`);
     }
@@ -82,7 +81,7 @@ export default function URLShortener() {
     setError("Failed to shorten URL");
   } finally {
     setIsLoading(false);
-    generateCaptcha(); // refresh captcha after submit
+    generateCaptcha();
   }
 };
 
@@ -191,5 +190,4 @@ export default function URLShortener() {
     </div>
   </div>
 </div>
-  )
-}
+)}

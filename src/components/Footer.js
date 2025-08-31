@@ -12,7 +12,7 @@ export default function Footer() {
         <Link href="/privacy" className="hover:underline">
         Privacy
         </Link>
-        <Link href="/admin/login" className="flex items-center space-x-1 hover:underline">
+        <Link href="/admin" className="flex items-center space-x-1 hover:underline">
         <Lock size={14} />
         <span>Admin Dashboard</span>
         </Link>
