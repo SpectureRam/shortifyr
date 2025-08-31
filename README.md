@@ -33,6 +33,7 @@ npm i
 #### Frontend (.env.local)
 ```
 NEXT_PUBLIC_FRONTEND_URL=''
+NEXT_PUBLIC_BACKEND_URL=''
 ```
 
 ### 4. Run the Project Locally
