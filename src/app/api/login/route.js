@@ -32,11 +32,11 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-
+    const isDev = process.env.NODE_ENV !== "production";
     const response = NextResponse.json({ success: true });
     response.cookies.set('adminAuth', 'true', {
       httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production',
+      secure: !isDev,
       sameSite: 'strict',
       maxAge: 60 * 60 * 24,
       path: '/',

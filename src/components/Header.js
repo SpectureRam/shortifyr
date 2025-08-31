@@ -9,7 +9,7 @@ export default function Header() {
   useEffect(() => {
     async function fetchStars() {
       try {
-        const res = await fetch("https://api.github.com/repos/spectureram/SpectureRam")
+        const res = await fetch("https://api.github.com/repos/spectureram/shortifyr")
         const data = await res.json()
         setStars(data.stargazers_count)
       } catch (err) {
