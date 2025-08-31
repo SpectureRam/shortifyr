@@ -3,6 +3,9 @@
 Shortifyr is a simple and efficient URL shortener built with **Next.js** (frontend) and **Express.js** (backend).  
 It allows users to shorten long URLs into neat, shareable links.
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4bd634b0-ec78-4dc9-80d9-ae613720325e" />
+
+
 ## 🚀 Features
 - Shorten any long URL into a compact link  
 - Redirect to the original URL using the shortened link  
